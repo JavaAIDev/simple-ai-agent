@@ -1,0 +1,61 @@
+name: Release
+
+permissions:
+  contents: write
+
+on:
+  push:
+    tags:
+      - v[0-9]+.*
+
+jobs:
+  build:
+    name: Build binary file on ${{ matrix.os }}
+    runs-on: ${{ matrix.os }}
+    strategy:
+      matrix:
+        os: [ macos-latest, windows-latest, ubuntu-latest ]
+
+    steps:
+      - uses: actions/checkout@v3
+
+      - uses: graalvm/setup-graalvm@v1
+        with:
+          java-version: '21'
+          distribution: 'graalvm-community'
+          components: 'native-image'
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          cache: maven
+
+      - name: Build with Maven
+        run: mvn -B -Pnative -DskipTests package --file pom.xml
+
+      - name: Upload binary
+        uses: actions/upload-artifact@v3
+        with:
+          name: cooking-agent-${{ matrix.os }}
+          path: |
+            target/cooking-agent*
+          retention-days: 1
+  release:
+    name: "Release"
+    needs: build
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/download-artifact@v2
+
+      - name: Rename files
+        run: |
+          mkdir release-files
+          mv cooking-agent-windows-latest/cooking-agent.exe release-files/cooking-agent.exe
+          mv cooking-agent-macos-latest/cooking-agent release-files/cooking-agent-macos
+          mv cooking-agent-ubuntu-latest/cooking-agent release-files/cooking-agent-ubuntu
+
+      - name: Create a Github Release
+        uses: ncipollo/release-action@v1
+        with:
+          token: "${{ secrets.GITHUB_TOKEN }}"
+          prerelease: false
+          body: ${{ github.ref_name }}
+          artifacts: "release-files/*"
+          generateReleaseNotes: true

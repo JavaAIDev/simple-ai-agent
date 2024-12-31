@@ -1,5 +1,7 @@
 # Simple AI Agent
 
+[![Maven build](https://github.com/JavaAIDev/simple-ai-agent/actions/workflows/maven.yml/badge.svg)](https://github.com/JavaAIDev/simple-ai-agent/actions/workflows/maven.yml)
+
 A simple AI agent built using Spring AI.
 
 Native executable of this agent is built using GraalVM.
