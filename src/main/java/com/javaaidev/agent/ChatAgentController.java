@@ -1,4 +1,4 @@
-package io.github.javaaidev.agent;
+package com.javaaidev.agent;
 
 import org.springframework.ai.chat.client.ChatClient;
 import org.springframework.web.bind.annotation.PostMapping;

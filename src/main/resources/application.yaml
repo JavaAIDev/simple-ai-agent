@@ -1,6 +1,6 @@
 spring:
   application:
-    name: native-ai-agent
+    name: simple-ai-agent
   threads.virtual.enabled: true
   ai:
     openai:

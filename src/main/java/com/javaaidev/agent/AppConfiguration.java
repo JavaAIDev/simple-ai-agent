@@ -1,4 +1,4 @@
-package io.github.javaaidev.agent;
+package com.javaaidev.agent;
 
 import java.net.http.HttpClient;
 import java.time.Duration;
@@ -13,17 +13,19 @@ import org.springframework.web.reactive.function.client.WebClient;
 @Configuration
 public class AppConfiguration {
 
+  private static final Duration API_TIMEOUT = Duration.ofMinutes(5);
+
   @Bean
   public RestClient.Builder restClientBuilder(HttpClient httpClient) {
     JdkClientHttpRequestFactory requestFactory = new JdkClientHttpRequestFactory(httpClient);
-    requestFactory.setReadTimeout(Duration.ofMinutes(3));
+    requestFactory.setReadTimeout(API_TIMEOUT);
     return RestClient.builder().requestFactory(requestFactory);
   }
 
   @Bean
   public WebClient.Builder webClientBuilder(HttpClient httpClient) {
     var connector = new JdkClientHttpConnector(httpClient);
-    connector.setReadTimeout(Duration.ofMinutes(3));
+    connector.setReadTimeout(API_TIMEOUT);
     return WebClient.builder().clientConnector(connector);
   }
 
@@ -33,7 +35,7 @@ public class AppConfiguration {
     executor.setVirtualThreads(true);
     return HttpClient.newBuilder()
         .executor(executor)
-        .connectTimeout(Duration.ofMinutes(3))
+        .connectTimeout(API_TIMEOUT)
         .build();
   }
 }

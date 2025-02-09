@@ -70,7 +70,7 @@
         </executions>
         <configuration>
           <imageName>cooking-agent</imageName>
-          <mainClass>io.github.javaaidev.agent.SimpleAiAgentApplication</mainClass>
+          <mainClass>com.javaaidev.agent.SimpleAiAgentApplication</mainClass>
           <fallback>false</fallback>
         </configuration>
       </plugin>
