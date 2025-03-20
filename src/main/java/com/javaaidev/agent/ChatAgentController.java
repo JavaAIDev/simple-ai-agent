@@ -20,7 +20,6 @@ import org.springframework.web.bind.annotation.RestController;
 @RequestMapping("/chat")
 public class ChatAgentController {
 
-
   private static final String SYSTEM_TEXT = "You are a chef who is proficient in various cuisines. Please answer users' questions about cooking.";
   private final ChatClient chatClient;
 
@@ -30,18 +29,21 @@ public class ChatAgentController {
 
   @PostMapping
   public ChatResponse chat(@RequestBody ChatRequest request) {
+    if (request == null) {
+      return new ChatResponse(List.of());
+    }
     var messages = request.messages().stream().flatMap(message -> {
       if (message instanceof ThreadUserMessage userMessage) {
         return userMessage.content().stream().map(part -> {
-          if (part instanceof TextContentPart textContentPart) {
-            return new UserMessage(textContentPart.text());
+          if (part instanceof TextContentPart(String text)) {
+            return new UserMessage(text);
           }
           return null;
         });
       } else if (message instanceof ThreadAssistantMessage assistantMessage) {
         return assistantMessage.content().stream().map(part -> {
-          if (part instanceof TextContentPart textContentPart) {
-            return new AssistantMessage(textContentPart.text());
+          if (part instanceof TextContentPart(String text)) {
+            return new AssistantMessage(text);
           }
           return null;
         });
