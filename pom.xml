@@ -6,13 +6,13 @@
   <parent>
     <groupId>org.springframework.boot</groupId>
     <artifactId>spring-boot-starter-parent</artifactId>
-    <version>3.4.1</version>
+    <version>3.4.3</version>
     <relativePath/>
   </parent>
   <groupId>io.github.javaaidev</groupId>
   <artifactId>native-simple-ai-agent</artifactId>
   <version>0.0.1-SNAPSHOT</version>
-  <name>native-simple-ai-agent</name>
+  <name>Simple AI Agent</name>
   <description>Simple AI agent</description>
   <properties>
     <java.version>21</java.version>

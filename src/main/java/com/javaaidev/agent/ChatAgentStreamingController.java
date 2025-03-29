@@ -11,27 +11,22 @@ import org.springframework.web.bind.annotation.RestController;
 import reactor.core.publisher.Flux;
 
 @RestController
-@RequestMapping("/chat")
-public class ChatAgentController extends AbstractChatAgentController {
+@RequestMapping("/chat_streaming")
+public class ChatAgentStreamingController extends AbstractChatAgentController {
 
   private final ChatClient chatClient;
 
-  public ChatAgentController(ChatClient.Builder builder) {
+  public ChatAgentStreamingController(ChatClient.Builder builder) {
     chatClient = builder.build();
   }
 
   @PostMapping
-  public Flux<ServerSentEvent<String>> chat(@RequestBody ChatRequest request) {
-    if (request == null) {
-      return Flux.empty();
-    }
+  public Flux<ServerSentEvent<String>> chatStreaming(@RequestBody ChatRequest request) {
     var messages = chatRequestToMessages(request);
-    var output = chatClient.prompt().system(SYSTEM_TEXT)
-        .messages(messages.toArray(new Message[0]))
-        .call()
-        .content();
-    return Flux.just(ServerSentEvent.<String>builder()
-        .data("#" + output + "#")
-        .build());
+    return chatClient.prompt().system(SYSTEM_TEXT).messages(messages.toArray(new Message[0]))
+        .stream().content()
+        .map(output -> ServerSentEvent.<String>builder()
+            .data("#" + output + "#")
+            .build());
   }
 }
