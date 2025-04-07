@@ -11,7 +11,7 @@ import org.springframework.web.bind.annotation.RestController;
 import reactor.core.publisher.Flux;
 
 @RestController
-@RequestMapping("/chat")
+@RequestMapping("/chat_non_streaming")
 public class ChatAgentController extends AbstractChatAgentController {
 
   private final ChatClient chatClient;
