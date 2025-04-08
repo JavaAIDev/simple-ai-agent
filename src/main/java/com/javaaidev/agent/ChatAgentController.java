@@ -1,6 +1,6 @@
 package com.javaaidev.agent;
 
-import com.javaaidev.chatagent.model.ChatRequest;
+import com.javaaidev.chatagent.model.ChatAgentRequest;
 import org.springframework.ai.chat.client.ChatClient;
 import org.springframework.ai.chat.messages.Message;
 import org.springframework.http.codec.ServerSentEvent;
@@ -21,7 +21,7 @@ public class ChatAgentController extends AbstractChatAgentController {
   }
 
   @PostMapping
-  public Flux<ServerSentEvent<String>> chat(@RequestBody ChatRequest request) {
+  public Flux<ServerSentEvent<String>> chat(@RequestBody ChatAgentRequest request) {
     if (request == null) {
       return Flux.empty();
     }

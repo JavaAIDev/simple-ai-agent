@@ -1,14 +1,9 @@
 package com.javaaidev.agent;
 
-import com.javaaidev.chatagent.model.ChatRequest;
-import com.javaaidev.chatagent.model.TextContentPart;
-import com.javaaidev.chatagent.model.ThreadAssistantMessage;
-import com.javaaidev.chatagent.model.ThreadUserMessage;
+import com.javaaidev.chatagent.model.ChatAgentRequest;
+import com.javaaidev.chatagent.springai.ModelAdapter;
 import java.util.List;
-import java.util.stream.Stream;
-import org.springframework.ai.chat.messages.AssistantMessage;
 import org.springframework.ai.chat.messages.Message;
-import org.springframework.ai.chat.messages.UserMessage;
 
 public abstract class AbstractChatAgentController {
 
@@ -18,24 +13,7 @@ public abstract class AbstractChatAgentController {
       """;
 
 
-  protected List<Message> chatRequestToMessages(ChatRequest request) {
-    return request.messages().stream().flatMap(message -> {
-      if (message instanceof ThreadUserMessage userMessage) {
-        return userMessage.content().stream().map(part -> {
-          if (part instanceof TextContentPart(String text)) {
-            return new UserMessage(text);
-          }
-          return null;
-        });
-      } else if (message instanceof ThreadAssistantMessage assistantMessage) {
-        return assistantMessage.content().stream().map(part -> {
-          if (part instanceof TextContentPart(String text)) {
-            return new AssistantMessage(text);
-          }
-          return null;
-        });
-      }
-      return Stream.<Message>of();
-    }).toList();
+  protected List<Message> chatRequestToMessages(ChatAgentRequest request) {
+    return ModelAdapter.fromRequest(request);
   }
 }
