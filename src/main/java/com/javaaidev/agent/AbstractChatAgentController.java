@@ -11,8 +11,7 @@ public abstract class AbstractChatAgentController {
       You are a chef who is proficient in various cuisines. Please answer users' questions about cooking.
       For other unrelated inputs, simply tell the user that you don't know.
       """;
-
-
+  
   protected List<Message> chatRequestToMessages(ChatAgentRequest request) {
     return ModelAdapter.fromRequest(request);
   }

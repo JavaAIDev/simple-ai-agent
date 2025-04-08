@@ -1,6 +1,8 @@
 package com.javaaidev.agent;
 
 import com.javaaidev.chatagent.model.ChatAgentRequest;
+import com.javaaidev.chatagent.model.ChatAgentResponse;
+import com.javaaidev.chatagent.springai.ModelAdapter;
 import org.springframework.ai.chat.client.ChatClient;
 import org.springframework.ai.chat.messages.Message;
 import org.springframework.http.MediaType;
@@ -22,12 +24,14 @@ public class ChatAgentStreamingController extends AbstractChatAgentController {
   }
 
   @PostMapping(produces = MediaType.TEXT_EVENT_STREAM_VALUE)
-  public Flux<ServerSentEvent<String>> chatStreaming(@RequestBody ChatAgentRequest request) {
+  public Flux<ServerSentEvent<ChatAgentResponse>> chatStreaming(
+      @RequestBody ChatAgentRequest request) {
     var messages = chatRequestToMessages(request);
-    return chatClient.prompt().system(SYSTEM_TEXT).messages(messages.toArray(new Message[0]))
-        .stream().content()
-        .map(output -> ServerSentEvent.<String>builder()
-            .data("#" + output + "#")
-            .build());
+    return ModelAdapter.toStreamingResponse(
+        chatClient.prompt()
+            .system(SYSTEM_TEXT)
+            .messages(messages.toArray(new Message[0]))
+            .stream()
+            .chatResponse());
   }
 }
