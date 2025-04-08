@@ -27,7 +27,7 @@ public class ChatAgentController extends AbstractChatAgentController {
     if (request == null) {
       return Flux.empty();
     }
-    var messages = chatRequestToMessages(request);
+    var messages = ModelAdapter.fromRequest(request);
     var chatResponse = chatClient.prompt().system(SYSTEM_TEXT)
         .messages(messages.toArray(new Message[0]))
         .call()

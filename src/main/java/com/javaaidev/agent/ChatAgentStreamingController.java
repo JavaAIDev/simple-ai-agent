@@ -26,7 +26,7 @@ public class ChatAgentStreamingController extends AbstractChatAgentController {
   @PostMapping(produces = MediaType.TEXT_EVENT_STREAM_VALUE)
   public Flux<ServerSentEvent<ChatAgentResponse>> chatStreaming(
       @RequestBody ChatAgentRequest request) {
-    var messages = chatRequestToMessages(request);
+    var messages = ModelAdapter.fromRequest(request);
     return ModelAdapter.toStreamingResponse(
         chatClient.prompt()
             .system(SYSTEM_TEXT)
