@@ -13,6 +13,11 @@ import org.springframework.web.reactive.function.client.WebClient;
 @Configuration
 public class AppConfiguration {
 
+  public static final String SYSTEM_TEXT = """
+      You are a chef who is proficient in various cuisines. Please answer users' questions about cooking.
+      For other unrelated inputs, simply tell the user that you don't know.
+      """;
+
   private static final Duration API_TIMEOUT = Duration.ofMinutes(5);
 
   @Bean

@@ -1,5 +1,7 @@
 package com.javaaidev.agent;
 
+import static com.javaaidev.agent.AppConfiguration.SYSTEM_TEXT;
+
 import com.javaaidev.chatagent.model.ChatAgentRequest;
 import com.javaaidev.chatagent.model.ChatAgentResponse;
 import com.javaaidev.chatagent.springai.ModelAdapter;
@@ -14,7 +16,7 @@ import reactor.core.publisher.Flux;
 
 @RestController
 @RequestMapping("/chat_non_streaming")
-public class ChatAgentController extends AbstractChatAgentController {
+public class ChatAgentController {
 
   private final ChatClient chatClient;
 
