@@ -1,6 +1,6 @@
 package com.javaaidev.agent;
 
-import static com.javaaidev.agent.AppConfiguration.SYSTEM_TEXT;
+import static com.javaaidev.agent.Constants.SYSTEM_TEXT;
 
 import com.javaaidev.chatagent.model.ChatAgentRequest;
 import com.javaaidev.chatagent.model.ChatAgentResponse;
