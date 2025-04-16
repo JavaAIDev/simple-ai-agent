@@ -28,11 +28,10 @@ public class ChatAgentStreamingController {
   @PostMapping(produces = MediaType.TEXT_EVENT_STREAM_VALUE)
   public Flux<ServerSentEvent<ChatAgentResponse>> chatStreaming(
       @RequestBody ChatAgentRequest request) {
-    var messages = ModelAdapter.fromRequest(request);
     return ModelAdapter.toStreamingResponse(
         chatClient.prompt()
             .system(SYSTEM_TEXT)
-            .messages(messages.toArray(new Message[0]))
+            .messages(ModelAdapter.fromRequest(request).toArray(new Message[0]))
             .stream()
             .chatResponse());
   }
