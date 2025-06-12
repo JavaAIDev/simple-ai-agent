@@ -11,12 +11,12 @@
   </parent>
   <groupId>io.github.javaaidev</groupId>
   <artifactId>native-simple-ai-agent</artifactId>
-  <version>0.0.1-SNAPSHOT</version>
+  <version>0.1.0</version>
   <name>Simple AI Agent</name>
   <description>Simple AI agent</description>
   <properties>
     <java.version>21</java.version>
-    <spring-ai.version>1.0.0-M7</spring-ai.version>
+    <spring-ai.version>1.0.0</spring-ai.version>
     <chat-agent-ui.version>0.11.0</chat-agent-ui.version>
     <llm-agent-spec.version>0.1.2</llm-agent-spec.version>
   </properties>
@@ -93,15 +93,5 @@
       </plugin>
     </plugins>
   </build>
-  <repositories>
-    <repository>
-      <id>spring-milestones</id>
-      <name>Spring Milestones</name>
-      <url>https://repo.spring.io/milestone</url>
-      <snapshots>
-        <enabled>false</enabled>
-      </snapshots>
-    </repository>
-  </repositories>
 
 </project>
