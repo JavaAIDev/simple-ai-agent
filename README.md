@@ -15,3 +15,4 @@ Build the native agent using the following command.
 mvn -Pnative -DskipTests package
 ```
 
+Start the application and access the chat UI at `http://localhost:8080/webjars/chat-agent-ui/index.html`.

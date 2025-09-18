@@ -1,0 +1,8 @@
+spring:
+  ai:
+    openai:
+      baseUrl: http://localhost:8180
+      api-key: local
+      chat:
+        options:
+          temperature: 0.0
