@@ -16,3 +16,5 @@ mvn -Pnative -DskipTests package
 ```
 
 Start the application and access the chat UI at `http://localhost:8080/webjars/chat-agent-ui/index.html`.
+
+To test reasoning support of a model, the `reasoning` profile should be enabled.

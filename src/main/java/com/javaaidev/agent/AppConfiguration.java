@@ -2,8 +2,11 @@ package com.javaaidev.agent;
 
 import java.net.http.HttpClient;
 import java.time.Duration;
+import org.springframework.ai.model.openai.autoconfigure.OpenAiChatProperties;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.Primary;
+import org.springframework.context.annotation.Profile;
 import org.springframework.core.task.SimpleAsyncTaskExecutor;
 import org.springframework.http.client.JdkClientHttpRequestFactory;
 import org.springframework.http.client.reactive.JdkClientHttpConnector;
@@ -37,5 +40,14 @@ public class AppConfiguration {
         .executor(executor)
         .connectTimeout(API_TIMEOUT)
         .build();
+  }
+
+  @Bean
+  @Primary
+  @Profile("reasoning")
+  public OpenAiChatProperties openAiChatProperties() {
+    OpenAiChatProperties properties = new OpenAiChatProperties();
+    properties.getOptions().setTemperature(null);
+    return properties;
   }
 }
