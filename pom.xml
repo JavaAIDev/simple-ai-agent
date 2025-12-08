@@ -17,8 +17,8 @@
   <properties>
     <java.version>21</java.version>
     <spring-ai.version>1.1.0</spring-ai.version>
-    <chat-agent-ui.version>0.13.0</chat-agent-ui.version>
-    <llm-agent-spec.version>0.3.0</llm-agent-spec.version>
+    <chat-agent-ui.version>0.15.0</chat-agent-ui.version>
+    <llm-agent-spec.version>0.5.0</llm-agent-spec.version>
   </properties>
   <dependencies>
     <dependency>
@@ -85,6 +85,13 @@
           <imageName>cooking-agent</imageName>
           <mainClass>com.javaaidev.agent.SimpleAiAgentApplication</mainClass>
           <fallback>false</fallback>
+          <buildArgs>
+            <arg>-O3</arg>
+            <arg>-H:+UnlockExperimentalVMOptions</arg>
+            <arg>-H:+ReportExceptionStackTraces</arg>
+            <arg>--emit</arg>
+            <arg>build-report</arg>
+          </buildArgs>
         </configuration>
       </plugin>
       <plugin>
