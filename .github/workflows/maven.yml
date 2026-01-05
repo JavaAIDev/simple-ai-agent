@@ -18,4 +18,4 @@ jobs:
           github-token: ${{ secrets.GITHUB_TOKEN }}
           cache: maven
       - name: Build with Maven
-        run: mvn -B -Pnative -DskipTests package --file pom.xml
+        run: mvn -B -DskipTests package --file pom.xml
