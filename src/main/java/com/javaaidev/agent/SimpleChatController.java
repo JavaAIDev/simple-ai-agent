@@ -1,15 +1,12 @@
 package com.javaaidev.agent;
 
+import static com.javaaidev.agent.Constants.SYSTEM_TEXT;
+
 import org.springframework.ai.chat.client.ChatClient;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 
 public class SimpleChatController {
-
-  public static final String SYSTEM_TEXT = """
-      You are a chef who is proficient in various cuisines. Please answer users' questions about cooking.
-      For other unrelated inputs, simply tell the user that you don't know.
-      """;
 
   private final ChatClient chatClient;
 
